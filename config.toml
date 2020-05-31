@@ -1,4 +1,4 @@
-# baseURL = "http://example.org/"
+baseURL = "https://intl-children-books.netlify.app/"
 languageCode = "en-us"
 title = "International children books"
 theme = "anubis"
