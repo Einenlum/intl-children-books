@@ -3,22 +3,22 @@
         {{ .Content }}
     </div>
 
-    {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
-    {{ range (.Paginate $pages).Pages }}
     <article class="post-list">
         <ul> 
-            <li>
-                <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            </li>
+            {{ $pages := where site.RegularPages "Type" "in" site.Params.mainSections }}
+            {{ range (.Paginate $pages).Pages }}
+                    <li>
+                        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    </li>
+        <!--         {{ if .Truncated }}
+                    <div class="read-more">
+                        <a href="{{ .RelPermalink }}">{{ i18n "readMore" | humanize }}</a>
+                    </div>
+                {{ end }} -->
+                
+                {{ partial "articleInfoFull.html" . }}
+            {{ end }}
         </ul>
-<!--         {{ if .Truncated }}
-            <div class="read-more">
-                <a href="{{ .RelPermalink }}">{{ i18n "readMore" | humanize }}</a>
-            </div>
-        {{ end }} -->
-        
-        {{ partial "articleInfoFull.html" . }}
     </article>
-    {{ end }}
 
 {{ end }}
