@@ -3,4 +3,4 @@ languageCode = "en-us"
 title = "International children books"
 theme = "anubis"
 [Params]
-    customCSS = ["main.css"]
+    customCSS = ["main.css", "normform.min.css"]

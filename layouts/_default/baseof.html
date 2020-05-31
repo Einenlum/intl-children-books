@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+    {{ block "head" . }}
+        {{ partial "head.html" . }}
+    {{ end }}
+</head>
+<body>
+    <a class="skip-main" href="#main">{{ i18n "skipToContent" | humanize }}</a>
+    <div class="container">
+        <header> 
+            {{ block "header" . }}
+                {{ partial "header.html" . }}
+            {{ end }}
+        </header>
+        <main id="main" tabindex="-1"> 
+            {{ block "main" . }}{{ end }}
+        </main>
+        <div class="new-suggestion">
+            <p>You want to suggest a new resource and/or a new language?</p>
+            <p>Please check this <a href="/suggest-new-material">page</a>, or open an issue directly on <a href="https://github.com/Einenlum/intl-children-books/issues">Github</a>.</p>
+        </div>
+        <footer>
+            {{ block "footer" . }}
+                {{ $languagesCount := $.Site.Home.AllTranslations }}
+                {{ if gt $languagesCount 1 }}
+                    {{ partial "languageSelect.html" . }}
+                {{ end }}
+
+                {{ partial "footer.html" . }}
+            {{ end }}
+        </footer>
+    </div>
+</body>
+</html>

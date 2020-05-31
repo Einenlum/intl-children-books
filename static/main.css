@@ -6,3 +6,34 @@ header h1 {
     font-weight: bold;
     font-size: 1.1em;
 }
+
+.new-suggestion {
+    background-color: #eeeeee;
+    padding: 10px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.no-border {
+    border:none;
+}
+
+.hide {
+    display: none;
+}
+
+.suggestion-feedback {
+    padding: 20px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+.suggestion-submitted {
+    background: #93C59F;
+}
+
+.suggestion-error {
+    background: #F8BECC;
+}

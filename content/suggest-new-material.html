@@ -1,0 +1,88 @@
+---
+title: Suggest new material
+---
+
+<form class="normform" id="suggestion-form">
+    <fieldset class="no-border">
+        <div>
+            <label for="name">Your name</label>
+            <input type="text" id="name" placeholder="Your name (will appear publicly on github in the archives)" required="required"/>
+        </div>
+        <div>
+            <label for="language">language</label>
+            <input type="text" id="language" placeholder="Language" required="required"/>
+        </div>
+        <div>
+            <label for="content">Message</label>
+            <textarea required="required" id="content">Your message, suggestion, new material.</textarea>
+        </div>
+    </fieldset>
+    <input type="submit" value="Send"</input>
+</form>
+
+<div class="suggestion-feedback suggestion-submitted hide">
+    <p>Thank you! Your suggestion has been submitted!</p>
+</div>
+
+<div class="suggestion-feedback suggestion-error hide">
+    <p>Sorry, there was an error in the submission. Try again at a later point or go directly on <a href="https://github.com/Einenlum/intl-children-books/issues">Github</a>.</p>
+</div>
+
+<script type="text/javascript">
+/*
+This is a simple API that creates an issue on github for this specific repository.
+This is why it should not be a problem to be able to push publicly to it.
+If anyday the system is abused, we will change how we deal with suggestions.
+*/
+const token = "1E49C12755CB34" + "D417DC412F64EE5";
+const url = "https://intl-children-books-api.herokuapp.com/create-issue";
+
+async function postIssue(data) {
+    const body = JSON.stringify({...data, token: token});
+
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: body
+    });
+
+    return response.status;
+}
+
+var callback = function(){
+    const formElement = document.getElementById("suggestion-form");
+    formElement.addEventListener("submit", function(event) {
+        event.preventDefault();
+        const language = formElement["language"].value;
+        const content = formElement["content"].value;
+        const name = formElement["name"].value;
+
+        postIssue({language: language, content: content, name: name})
+        .then(function(status) {
+            formElement.classList.add("hide");
+
+            if (status === 201) {
+                const successDiv = document.querySelector('.suggestion-submitted')
+                successDiv.classList.remove('hide');
+
+                return;
+            } 
+            const errorDiv = document.querySelector('.suggestion-error')
+            errorDiv.classList.remove('hide');
+
+        });
+        
+    });
+};
+
+if (
+    document.readyState === "complete" ||
+    (document.readyState !== "loading" && !document.documentElement.doScroll)
+) {
+    callback();
+} else {
+    document.addEventListener("DOMContentLoaded", callback);
+}
+</script>
