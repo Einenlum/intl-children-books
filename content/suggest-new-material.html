@@ -23,7 +23,7 @@ title: Suggest new material
             <textarea required="required" id="content">Your message, suggestion, new material.</textarea>
         </div>
     </fieldset>
-    <input type="submit" value="Send"</input>
+    <input id="submit-button" type="submit" value="Send"</input>
 </form>
 
 <div class="suggestion-feedback suggestion-submitted hide">
@@ -64,6 +64,8 @@ var callback = function(){
         const language = formElement["language"].value;
         const content = formElement["content"].value;
         const name = formElement["name"].value;
+        const button = document.querySelector('#submit-button');
+        button.disabled = true;
 
         postIssue({language: language, content: content, name: name})
         .then(function(status) {
